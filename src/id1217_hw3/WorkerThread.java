@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author Kim
  */
-public class WorkerThread extends Thread {
+public class WorkerThread extends Thread implements Runnable {
 
     public enum Gender {
         MALE, FEMALE;
@@ -29,19 +29,20 @@ public class WorkerThread extends Thread {
     
     @Override
     public void run() {
-        System.out.println("Woman["+id+"] started working.");
+        System.out.println(gender.toString()+"["+id+"] started working.");
         Random rand = new Random();
         
         while(true) {
             long workTime = rand.nextInt(1000 * 30);
-            System.out.println("Woman["+id+"] works for " + workTime + " minutes.");
+            System.out.println("gender.toString()"+id+"] works for " + workTime + " minutes.");
             try {
                 this.sleep(workTime);
             } catch (InterruptedException ex) {
-                System.out.println("Woman["+id+"]'s work time interrupted.");
+                System.out.println(gender.toString()+"["+id+"]'s work time interrupted.");
             }
             
             bathroom.enter(this);
+            bathroom.use(this);
             bathroom.leave(this);
         }
         //System.out.println("Woman["+id+"] finished.");
