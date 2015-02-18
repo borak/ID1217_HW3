@@ -1,0 +1,47 @@
+run:
+2015-02-18 12:11:05.756: MALE[4] is QUEUED for the bathroom.
+2015-02-18 12:11:05.787: MALE[4] entered the bathroom.
+2015-02-18 12:11:05.787: MALE[4] uses the bathroom.
+2015-02-18 12:11:08.892: FEMALE[6] is QUEUED for the bathroom.
+2015-02-18 12:11:09.844: FEMALE[5] is QUEUED for the bathroom.
+2015-02-18 12:11:09.864: FEMALE[8] is QUEUED for the bathroom.
+2015-02-18 12:11:13.756: FEMALE[2] is QUEUED for the bathroom.
+2015-02-18 12:11:14.332: MALE[4] has left the bathroom.
+2015-02-18 12:11:14.358: FEMALE[2] entered the bathroom.
+2015-02-18 12:11:14.358: FEMALE[2] uses the bathroom.
+2015-02-18 12:11:14.455: FEMALE[5] entered the bathroom.
+2015-02-18 12:11:14.455: FEMALE[5] uses the bathroom.
+2015-02-18 12:11:14.476: FEMALE[8] entered the bathroom.
+2015-02-18 12:11:14.476: FEMALE[8] uses the bathroom.
+2015-02-18 12:11:14.507: FEMALE[6] entered the bathroom.
+2015-02-18 12:11:14.508: FEMALE[6] uses the bathroom.
+2015-02-18 12:11:16.436: FEMALE[6] has left the bathroom.
+2015-02-18 12:11:16.444: FEMALE[3] is QUEUED for the bathroom.
+2015-02-18 12:11:16.444: FEMALE[3] entered the bathroom.
+2015-02-18 12:11:16.444: FEMALE[3] uses the bathroom.
+2015-02-18 12:11:17.198: FEMALE[5] has left the bathroom.
+2015-02-18 12:11:20.171: FEMALE[8] has left the bathroom.
+2015-02-18 12:11:20.204: MALE[1] is QUEUED for the bathroom.
+2015-02-18 12:11:20.324: FEMALE[2] has left the bathroom.
+2015-02-18 12:11:23.898: FEMALE[9] is QUEUED for the bathroom.
+2015-02-18 12:11:24.843: MALE[0] is QUEUED for the bathroom.
+2015-02-18 12:11:25.363: FEMALE[3] has left the bathroom.
+2015-02-18 12:11:25.417: MALE[1] entered the bathroom.
+2015-02-18 12:11:25.417: MALE[1] uses the bathroom.
+2015-02-18 12:11:25.444: MALE[0] entered the bathroom.
+2015-02-18 12:11:25.444: MALE[0] uses the bathroom.
+2015-02-18 12:11:25.493: FEMALE[7] is QUEUED for the bathroom.
+2015-02-18 12:11:30.946: FEMALE[6] is QUEUED for the bathroom.
+2015-02-18 12:11:31.412: MALE[0] has left the bathroom.
+2015-02-18 12:11:31.913: FEMALE[8] is QUEUED for the bathroom.
+2015-02-18 12:11:32.286: MALE[1] has left the bathroom.
+2015-02-18 12:11:32.3: FEMALE[7] entered the bathroom.
+2015-02-18 12:11:32.3: FEMALE[7] uses the bathroom.
+2015-02-18 12:11:32.312: FEMALE[9] entered the bathroom.
+2015-02-18 12:11:32.312: FEMALE[9] uses the bathroom.
+2015-02-18 12:11:32.313: FEMALE[8] entered the bathroom.
+2015-02-18 12:11:32.313: FEMALE[8] uses the bathroom.
+2015-02-18 12:11:32.349: FEMALE[6] entered the bathroom.
+2015-02-18 12:11:32.349: FEMALE[6] uses the bathroom.
+2015-02-18 12:11:35.274: FEMALE[6] has left the bathroom.
+BUILD STOPPED (total time: 37 seconds)

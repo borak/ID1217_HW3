@@ -3,14 +3,25 @@ package id1217_hw3;
 import java.util.Random;
 
 /**
- *
+ * This application is a solution to the unisex bathroom problem using only 
+ * semaphores for synchronization.
+ * This class will start the workers and they will all have access to the same 
+ * bathroom.
+ * 
  * @author Kim
  */
 public class ID1217_HW3Startup {
 
-    public static final int NUMBER_OF_WORKERS_MAXIMUM = 30;
+    public static final int NUMBER_OF_WORKERS_MAXIMUM = 100;
     public static final int NUMBER_OF_WORKERS_DEFAULT = 10;
     
+    /**
+     * Sets up a bathroom and starts the specified amount (the default is 10) 
+     * of workers.
+     * @param args [0] The number of worker threads that will run and simulate 
+     * to work and use the bathroom. 
+     * @throws InterruptedException If any 
+     */
     public static void main(String[] args) throws InterruptedException {
         
         int numberOfWorkers;
@@ -31,8 +42,7 @@ public class ID1217_HW3Startup {
             numberOfWorkers = NUMBER_OF_WORKERS_DEFAULT;;
         }
         
-        BathroomThread bathroom = new BathroomThread();
-        bathroom.start();
+        Bathroom bathroom = new Bathroom();
 
         Random rand = new Random();
         for(int i = 0; i < numberOfWorkers; i++) {

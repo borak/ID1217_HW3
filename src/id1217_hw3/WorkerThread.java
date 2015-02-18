@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package id1217_hw3;
 
 import java.util.Random;
@@ -16,11 +11,12 @@ public class WorkerThread extends Thread implements Runnable {
     public enum Gender {
         MALE, FEMALE;
     }
-    private BathroomThread bathroom;
-    private int id;
-    private Gender gender;
+    private final Bathroom bathroom;
+    private final int id;
+    private final Gender gender;
+    private final static int WORK_TIME = 30 * 1000;
     
-    public WorkerThread(int id, Gender gender, BathroomThread bathroom) {
+    public WorkerThread(int id, Gender gender, Bathroom bathroom) {
         super();
         this.bathroom = bathroom;
         this.id = id;
@@ -29,23 +25,20 @@ public class WorkerThread extends Thread implements Runnable {
     
     @Override
     public void run() {
-        System.out.println(gender.toString()+"["+id+"] started working.");
         Random rand = new Random();
         
         while(true) {
-            long workTime = rand.nextInt(1000 * 30);
-            System.out.println("gender.toString()"+id+"] works for " + workTime + " minutes.");
+            long workTime = rand.nextInt(WORK_TIME);
+
             try {
                 this.sleep(workTime);
+                bathroom.enter(this);
+                bathroom.use(this);
+                bathroom.leave(this);
             } catch (InterruptedException ex) {
-                System.out.println(gender.toString()+"["+id+"]'s work time interrupted.");
+                System.err.println(getGender() + "[" + getId() + ": " + ex.getMessage());
             }
-            
-            bathroom.enter(this);
-            bathroom.use(this);
-            bathroom.leave(this);
         }
-        //System.out.println("Woman["+id+"] finished.");
     }
     
     @Override
