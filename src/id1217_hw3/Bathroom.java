@@ -17,13 +17,13 @@ import java.util.concurrent.Semaphore;
  */
 public class Bathroom {
 
-    private final Semaphore femaleBathroomSem;
-    private final Semaphore maleBathroomSem;
-    private final Semaphore maleBathroomSemLock = new Semaphore(1);
-    private final Semaphore femaleBathroomSemLock = new Semaphore(1);
-    private final Semaphore queueSemLock = new Semaphore(1);
+    private final Semaphore femaleBathroomSem;  //Number of locks acquired represents the number of female users.
+    private final Semaphore maleBathroomSem;    //Number of locks acquired represents the number of male users.
+    private final Semaphore emptySemLock = new Semaphore(1);    //When acquired, the bathroom is NOT empty.
+    private final Semaphore maleBathroomSemLock = new Semaphore(1); //Used to block males from entering.
+    private final Semaphore femaleBathroomSemLock = new Semaphore(1); //Used to block females from entering.
     private final int numberOfStalls;
-    private final static int USE_TIME = 10 * 1000; 
+    private final static int USE_TIME = 3 * 100; 
     public final static int NUMBER_OF_STALLS_DEFAULT = 1000;
 
     /**
@@ -77,38 +77,21 @@ public class Bathroom {
     public void leave(WorkerThread wt) throws InterruptedException {
 
         if (wt.getGender() == WorkerThread.Gender.FEMALE) {
-
-            queueSemLock.acquire();
-
-            if (femaleBathroomSem.availablePermits() == numberOfStalls - 1) {
-
-                if (!femaleBathroomSemLock.tryAcquire()) {
-                    femaleBathroomSem.release();
-                    maleBathroomSemLock.release();
-                }
-
-            } else {
-                femaleBathroomSem.release();
+            femaleBathroomSem.release();
+            
+            femaleBathroomSemLock.acquire();
+            if(femaleBathroomSem.availablePermits() == numberOfStalls) {
+                emptySemLock.release();
             }
-
-            queueSemLock.release();
-
+            femaleBathroomSemLock.release();
         } else if (wt.getGender() == WorkerThread.Gender.MALE) {
- 
-            queueSemLock.acquire();
-
-            if (maleBathroomSem.availablePermits() == numberOfStalls - 1) {
-
-                if (!maleBathroomSemLock.tryAcquire()) {
-                    maleBathroomSem.release();
-                    femaleBathroomSemLock.release();
-                }
-
-            } else {
-                maleBathroomSem.release();
+            maleBathroomSem.release();
+            
+            maleBathroomSemLock.acquire();
+            if(maleBathroomSem.availablePermits() == numberOfStalls) {
+                emptySemLock.release();
             }
-
-            queueSemLock.release();
+            maleBathroomSemLock.release();
         } else {
             throw new UnsupportedOperationException("The worker thread has an unsupported gender type.");
         }
@@ -125,31 +108,32 @@ public class Bathroom {
                 wt.getGender() + "[" + wt.getId() + "] is QUEUED for the bathroom.");
         if (wt.getGender() == WorkerThread.Gender.FEMALE) {
             try {
-                maleBathroomSemLock.tryAcquire();
-
-                while (!femaleBathroomSemLock.tryAcquire()) {
-                    Thread.sleep(200);
-                }
-                femaleBathroomSemLock.release();
                 
-                queueSemLock.acquire();
+                while (!femaleBathroomSemLock.tryAcquire()) {
+                    wt.sleep(200);
+                }
                 femaleBathroomSem.acquire();
-                queueSemLock.release();
+                
+                if(femaleBathroomSem.availablePermits() == numberOfStalls - 1)
+                    while(!emptySemLock.tryAcquire()) {
+                        wt.sleep(200);
+                    }
+                femaleBathroomSemLock.release();
             } catch (InterruptedException ex) {
                 System.err.println(wt.getGender() + "[" + wt.getId() + ": " + ex.getMessage());
             }
         } else if (wt.getGender() == WorkerThread.Gender.MALE) {
             try {
-                femaleBathroomSemLock.tryAcquire(); 
-
                 while (!maleBathroomSemLock.tryAcquire()) {
-                    Thread.sleep(200);
+                    wt.sleep(200);
                 }
-                maleBathroomSemLock.release();
-                
-                queueSemLock.acquire();
                 maleBathroomSem.acquire();
-                queueSemLock.release();
+                
+                if(maleBathroomSem.availablePermits() == numberOfStalls - 1)
+                    while(!emptySemLock.tryAcquire()) {
+                        wt.sleep(200);
+                    }
+                maleBathroomSemLock.release();
             } catch (InterruptedException ex) {
                 System.err.println(wt.getGender() + "[" + wt.getId() + ": " + ex.getMessage());
             }

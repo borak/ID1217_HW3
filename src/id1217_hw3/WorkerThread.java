@@ -14,7 +14,7 @@ public class WorkerThread extends Thread implements Runnable {
     private final Bathroom bathroom;
     private final int id;
     private final Gender gender;
-    private final static int WORK_TIME = 30 * 1000;
+    private final static int WORK_TIME = 3 * 1000;
     
     public WorkerThread(int id, Gender gender, Bathroom bathroom) {
         super();
